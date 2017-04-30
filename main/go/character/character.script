@@ -8,7 +8,8 @@ local is_paused = false
 
 function init(self)
 	rt_urls.dynamic.character = msg.url(".")
-	--msg.post("camera", rt_msgs.SET_CAMERA_TARGET)
+	msg.post("camera", rt_msgs.SET_CAMERA_DELAY, {delay=1.0})
+	msg.post("camera", rt_msgs.SET_CAMERA_TARGET)
 	msg.post("camera", rt_msgs.SET_CAMERA_OFFSET, {offset=vmath.vector3(-640, -360, 0)})
 	msg.post(rt_urls.LEVEL_MANAGER, rt_msgs.WARN_LEVEL_CHANGES)
 	self.go_2_5d = go_2_5d:new()
