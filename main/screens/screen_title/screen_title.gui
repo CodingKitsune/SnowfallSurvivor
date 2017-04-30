@@ -132,7 +132,7 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "New Game"
+  text: "JUMP"
   font: "label"
   id: "new_game_button/label"
   xanchor: XANCHOR_LEFT
@@ -158,7 +158,6 @@ nodes {
   alpha: 1.0
   outline_alpha: 1.0
   shadow_alpha: 1.0
-  overridden_fields: 8
   template_node_child: true
   text_leading: 1.0
   text_tracking: 0.0
@@ -290,7 +289,7 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "Continue"
+  text: "JUMP"
   font: "label"
   id: "continue_button/label"
   xanchor: XANCHOR_LEFT
@@ -316,7 +315,6 @@ nodes {
   alpha: 1.0
   outline_alpha: 1.0
   shadow_alpha: 1.0
-  overridden_fields: 8
   template_node_child: true
   text_leading: 1.0
   text_tracking: 0.0
@@ -448,7 +446,7 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "Exit Game"
+  text: "JUMP"
   font: "label"
   id: "exit_button/label"
   xanchor: XANCHOR_LEFT
@@ -474,7 +472,6 @@ nodes {
   alpha: 1.0
   outline_alpha: 1.0
   shadow_alpha: 1.0
-  overridden_fields: 8
   template_node_child: true
   text_leading: 1.0
   text_tracking: 0.0
