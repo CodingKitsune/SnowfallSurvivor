@@ -40,8 +40,28 @@ instances {
   }
 }
 instances {
-  id: "level_village"
-  prototype: "/main/levels/level_village/level_village.go"
+  id: "polar_bear"
+  prototype: "/main/go/animal/polar_bear/polar_bear.go"
+  position {
+    x: -142.88
+    y: 117.004
+    z: 0.8
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "level_near_the_ocean"
+  prototype: "/main/levels/level_near_the_ocean/level_near_the_ocean.go"
   position {
     x: 0.0
     y: 0.0

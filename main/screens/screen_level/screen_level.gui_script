@@ -3,13 +3,47 @@ local defold_msgs = require("riritools.lua.defold_msgs")
 local rt_urls = require("riritools.lua.riritools_urls")
 local rt_msgs = require("riritools.lua.riritools_msgs")
 local ss_msgs = require("main.lua.msgs")
+local color = require("riritools.lua.colors")
 
 function init(self)
 	msg.post(".", defold_msgs.ACQUIRE_INPUT_FOCUS)
-	self.action_button = gui_button:new("action_button")
+
+	self.up_button = gui_button:new("up_button", {no_label=true})
+	self.up_button:setup({translate=false})
+	self.up_button.cooldown = 0
+	self.up_button.repeated_function_args = self
+	self.up_button.repeated_function = function(self)
+		msg.post(rt_urls.dynamic.character, ss_msgs.MOVE_CHAR_UP)
+	end
+
+	self.down_button = gui_button:new("down_button", {no_label=true})
+	self.down_button:setup({translate=false})
+	self.down_button.cooldown = 0
+	self.down_button.repeated_function_args = self
+	self.down_button.repeated_function = function(self)
+		msg.post(rt_urls.dynamic.character, ss_msgs.MOVE_CHAR_DOWN)
+	end
+
+	self.left_button = gui_button:new("left_button", {no_label=true})
+	self.left_button:setup({translate=false})
+	self.left_button.cooldown = 0
+	self.left_button.repeated_function_args = self
+	self.left_button.repeated_function = function(self)
+		msg.post(rt_urls.dynamic.character, ss_msgs.MOVE_CHAR_LEFT)
+	end
+
+	self.right_button = gui_button:new("right_button", {no_label=true})
+	self.right_button:setup({translate=false})
+	self.right_button.cooldown = 0
+	self.right_button.repeated_function_args = self
+	self.right_button.repeated_function = function(self)
+		msg.post(rt_urls.dynamic.character, ss_msgs.MOVE_CHAR_RIGHT)
+	end
+
+	self.action_button = gui_button:new("action_button", {no_label=true})
 	self.action_button:setup({translate=false})
 
-	self.pause_button = gui_button:new("pause_button")
+	self.pause_button = gui_button:new("pause_button", {no_label=true})
 	self.pause_button:setup({translate=false})
 	self.pause_button.pressed_function_args = self
 	self.pause_button.pressed_function = function(self)
@@ -19,6 +53,10 @@ function init(self)
 	end
 
 	self.eat_game = gui_button:new("eat_button")
+	self.eat_game.normal_color = color.WHITE
+	self.eat_game.pressed_color = color.GRAY
+	self.eat_game.inactive_color = color.GRAY
+	self.eat_game.disabled_color = color.GRAY
 	self.eat_game:setup({translate=false})
 
 	msg.post(rt_urls.GO_PLAYER, ss_msgs.START_LEVEL)
@@ -39,4 +77,9 @@ function on_input(self, action_id, action)
 	self.action_button:on_input(action_id, action)
 	self.pause_button:on_input(action_id, action)
 	self.eat_game:on_input(action_id, action)
+
+	self.left_button:on_input(action_id, action)
+	self.right_button:on_input(action_id, action)
+	self.up_button:on_input(action_id, action)
+	self.down_button:on_input(action_id, action)
 end

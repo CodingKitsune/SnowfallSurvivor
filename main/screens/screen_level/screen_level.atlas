@@ -1,0 +1,21 @@
+images {
+  image: "/main/assets/textures/hud/Arroe-down.png"
+}
+images {
+  image: "/main/assets/textures/hud/Arrow-left.png"
+}
+images {
+  image: "/main/assets/textures/hud/Arrow-right.png"
+}
+images {
+  image: "/main/assets/textures/hud/Arrow-up.png"
+}
+images {
+  image: "/main/assets/textures/hud/Attack.png"
+}
+images {
+  image: "/main/assets/textures/hud/pause.png"
+}
+margin: 0
+extrude_borders: 0
+inner_padding: 0

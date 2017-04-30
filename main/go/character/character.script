@@ -10,7 +10,6 @@ local is_paused = false
 local function handle_obstacle_contact(self, normal, distance)
     local proj = vmath.dot(self.correction, normal)
     local comp = (distance - proj) * normal
-    comp.z = 0
     self.correction = self.correction + comp
     go.set_position(go.get_position() + comp)
 
@@ -27,10 +26,13 @@ function init(self)
     self.velocity = vmath.vector3(0, 0, 0)
     self.move_input = {x=0, y=0}
 	rt_urls.dynamic.character = msg.url(".")
-	msg.post("camera", rt_msgs.SET_CAMERA_DELAY, {delay=0.7})
+	local camera = msg.url("camera#script")
+	go.set(camera, "speed", 0.7)
+	go.set(camera, "delay", 0.5)
+	go.set(camera, "offset", vmath.vector3(-420, -240, 0))
 	msg.post("camera", rt_msgs.SET_CAMERA_TARGET)
-	msg.post("camera", rt_msgs.SET_CAMERA_OFFSET, {offset=vmath.vector3(-640, -360, 0)})
 	msg.post(rt_urls.LEVEL_MANAGER, rt_msgs.WARN_LEVEL_CHANGES)
+	
 	self.go_2_5d = go_2_5d:new()
 end
 
@@ -38,6 +40,7 @@ function final(self)
 end
 
 function update(self, dt)
+	msg.post("@render:", rt_msgs.SET_ZOOM, {zoom=1.5})
 	self.go_2_5d:update(dt)
 
 	local target_speed = {
@@ -73,7 +76,7 @@ function update(self, dt)
     local dp = (v0 + self.velocity) * dt * 0.5
     go.set_position(go.get_position() + dp)
 	
-    self.correction = vmath.vector3()
+    --self.correction = vmath.vector3()
     self.move_input = {x=0,y=0}
 
     if (self.velocity.x == 0 and self.velocity.y == 0) then
@@ -105,7 +108,9 @@ function on_message(self, message_id, message, sender)
 		sprite.set_hflip("#sprite", false)
 	elseif message_id == defold_msgs.CONTACT_POINT_RESPONSE and message.group == rt_groups.GROUP_WORLD then
         handle_obstacle_contact(self, message.normal, message.distance)
-	end
+	elseif message_id == ss_msgs.BUMP_ON_PLAYER then
+
+    end
 
 	go.set_position(position)
 end

@@ -1,6 +1,11 @@
+local rt_urls = require("riritools.lua.riritools_urls")
+local defold_msgs = require("riritools.lua.defold_msgs")
+local rt_msgs = require("riritools.lua.riritools_msgs")
+local rt_groups = require("riritools.lua.riritools_groups")
+local ss_msgs = require("main.lua.msgs")
+
 function init(self)
-	-- Add initialization code here
-	-- Remove this function if not needed
+	
 end
 
 function final(self)
@@ -14,6 +19,9 @@ function update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
+	if (message_id == defold_msgs.CONTACT_POINT_RESPONSE and message.group == rt_groups.GROUP_PLAYER) then
+		msg.post(rt_urls.dynamic.character, ss_msgs.BUMP_ON_PLAYER)
+	end
 	-- Add message-handling code here
 	-- Remove this function if not needed
 end

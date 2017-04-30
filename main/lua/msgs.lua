@@ -6,6 +6,7 @@ local msgs = table_utils.make_read_only_table {
 	MOVE_CHAR_DOWN = hash("move_char_down"),
 	MOVE_CHAR_LEFT = hash("move_char_left"),
 	MOVE_CHAR_RIGHT = hash("move_char_right"),
+	BUMP_ON_PLAYER = hash("bump_on_player")
 }
 
 return msgs
