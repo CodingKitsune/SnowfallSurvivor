@@ -1,0 +1,32 @@
+local gui_button = require("riritools.lua.gui_button")
+local defold_msgs = require("riritools.lua.defold_msgs")
+local rt_urls = require("riritools.lua.riritools_urls")
+
+function init(self)
+	msg.post(".", defold_msgs.ACQUIRE_INPUT_FOCUS)
+	self.action_button = gui_button:new("action_button")
+	self.action_button:setup({translate=false})
+
+	self.pause_button = gui_button:new("pause_button")
+	self.pause_button:setup({translate=false})
+
+	self.eat_game = gui_button:new("eat_button")
+	self.eat_game:setup({translate=false})
+
+	--msg.post(rt_urls.GO_PLAYER, )
+end
+
+function final(self)
+end
+
+function update(self, dt)
+end
+
+function on_message(self, message_id, message, sender)
+end
+
+function on_input(self, action_id, action)
+	self.action_button:on_input(action_id, action)
+	self.pause_button:on_input(action_id, action)
+	self.eat_game:on_input(action_id, action)
+end

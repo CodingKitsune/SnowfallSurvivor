@@ -2,6 +2,9 @@ local bootstrap = require("riritools.lua.bootstrap")
 local warnings = require("riritools.lua.warnings")
 
 local gui_component = require("riritools.lua.gui_component")
+local save_file_manager = require("riritools.lua.save_file_manager")
+
+require("main.screens.connectors.player_data_connector")
 
 function init(self)
 
@@ -13,10 +16,18 @@ function init(self)
 
 	--CUSTOM LINE
 	--[[	
-	rt.save_file_manager.schema = {
-	
+	--]]
+	save_file_manager.schema = {
+		"map",
+		"position"
+	}
+
+	save_file_manager.default = {
+		map="asd",
+		position = {x=0, y=0}
 	}
 	
+	--[[
 	--CUSTOM LINE
 	rt.config_file_manager.schema = {
 		"se_volume",
@@ -24,8 +35,8 @@ function init(self)
 		"me_volume",
 		"bgs_volum"
 	}
+	]]
 
-	--]]
 	--gui_component.static.global_dictionary:load("/main/dictionaries/english_menu.json")
 
 	

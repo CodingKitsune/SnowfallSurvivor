@@ -1,29 +1,21 @@
+local rt_urls = require("riritools.lua.riritools_urls")
+local rt_msgs = require("riritools.lua.riritools_msgs")
+
+local fade_time = 1.5
+
+local function end_screen(script, node)
+	msg.post(rt_urls.SCREEN_MANAGER, rt_msgs.POP_SCREEN)
+	msg.post(rt_urls.SCREEN_MANAGER, rt_msgs.PUSH_SCREEN, {screen="screen_title"})
+end
+
+local function fade_out(script, node)
+	gui.animate(node, "color.w", 0, gui.EASING_LINEAR, fade_time, fade_time * 0.5, end_screen)
+end
+
 function init(self)
-	-- Add initialization code here
-	-- Remove this function if not needed
-end
-
-function final(self)
-	-- Add finalization code here
-	-- Remove this function if not needed
-end
-
-function update(self, dt)
-	-- Add update code here
-	-- Remove this function if not needed
-end
-
-function on_message(self, message_id, message, sender)
-	-- Add message-handling code here
-	-- Remove this function if not needed
-end
-
-function on_input(self, action_id, action)
-	-- Add input-handling code here
-	-- Remove this function if not needed
-end
-
-function on_reload(self)
-	-- Add input-handling code here
-	-- Remove this function if not needed
+	self.logo = gui.get_node("logo")
+	local color = gui.get_color(self.logo)
+	color.w = 0
+	gui.set_color(self.logo, color)
+	gui.animate(self.logo, "color.w", 1, gui.EASING_LINEAR, fade_time, 0, fade_out)
 end
