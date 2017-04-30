@@ -13,11 +13,12 @@ function init(self)
 
 	self.pause_button = gui_button:new("pause_button")
 	self.pause_button:setup({translate=false})
-	self.pause_button.target = self
+	self.pause_button.pressed_function_args = self
 	self.pause_button.pressed_function = function(self)
 		if not self.clicked then
 			msg.post(rt_urls.SCREEN_MANAGER, rt_msgs.POP_SCREEN)
 			msg.post(rt_urls.SCREEN_MANAGER, rt_msgs.PUSH_SCREEN, {screen="screen_pause"})
+			self.clicked = true
 		end
 	end
 

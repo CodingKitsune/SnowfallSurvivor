@@ -1,6 +1,54 @@
+local gui_button = require("riritools.lua.gui_button")
+local defold_msgs = require("riritools.lua.defold_msgs")
+local rt_urls = require("riritools.lua.riritools_urls")
+local rt_msgs = require("riritools.lua.riritools_msgs")
+
 function init(self)
-	-- Add initialization code here
-	-- Remove this function if not needed
+
+	msg.post(".", defold_msgs.ACQUIRE_INPUT_FOCUS)
+
+	self.clicked = false
+
+	self.continue_button = gui_button:new("continue_button")
+	self.continue_button:setup({translate = false})
+	self.continue_button.pressed_function_args = self
+	self.continue_button.pressed_function = function(self)
+		if not self.clicked then
+
+	
+			self.clicked = true
+		end
+	end
+
+	self.title_button = gui_button:new("titulo_button")
+	self.title_button:setup({translate = false})
+	self.title_button.pressed_function_args = self
+	self.title_button.pressed_function = function(self)
+		if not self.clicked then
+
+			self.clicked = true
+		end
+	end
+
+	self.options_button = gui_button:new("options_button")
+	self.options_button:setup({translate = false})
+	self.options_button.pressed_function_args = self
+	self.options_button.pressed_function = function(self)
+		if not self.clicked then
+
+			self.clicked = true
+		end
+	end
+
+	self.exit_button = gui_button:new("exit_button")
+	self.exit_button:setup({translate = false})
+	self.exit_button.pressed_function_args = self
+	self.exit_button.pressed_function = function(obj)
+		msg.post(rt_urls.SCREEN_MANAGER, rt_msgs.EXIT_GAME)
+	end
+
+
+	
 end
 
 function final(self)
@@ -19,8 +67,10 @@ function on_message(self, message_id, message, sender)
 end
 
 function on_input(self, action_id, action)
-	-- Add input-handling code here
-	-- Remove this function if not needed
+	self.continue_button:on_input(action_id, action)
+	self.title_button:on_input(action_id, action)
+	self.options_button:on_input(action_id, action)
+	self.exit_button:on_input(action_id, action)
 end
 
 function on_reload(self)
