@@ -5,6 +5,7 @@ local gui_component = require("riritools.lua.gui_component")
 local save_file_manager = require("riritools.lua.save_file_manager")
 
 require("main.screens.connectors.player_data_connector")
+require("main.screens.connectors.screen_level_connector")
 
 function init(self)
 
@@ -23,7 +24,7 @@ function init(self)
 	}
 
 	save_file_manager.default = {
-		map="asd",
+		map="level_system_test",
 		position = {x=0, y=0}
 	}
 	

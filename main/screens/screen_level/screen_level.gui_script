@@ -2,6 +2,7 @@ local gui_button = require("riritools.lua.gui_button")
 local defold_msgs = require("riritools.lua.defold_msgs")
 local rt_urls = require("riritools.lua.riritools_urls")
 local rt_msgs = require("riritools.lua.riritools_msgs")
+local ss_msgs = require("main.lua.msgs")
 
 function init(self)
 	msg.post(".", defold_msgs.ACQUIRE_INPUT_FOCUS)
@@ -23,7 +24,8 @@ function init(self)
 	self.eat_game = gui_button:new("eat_button")
 	self.eat_game:setup({translate=false})
 
-	--msg.post(rt_urls.GO_PLAYER, )
+	pprint("ASD2")
+	msg.post(rt_urls.GO_PLAYER, ss_msgs.START_LEVEL)
 end
 
 function final(self)

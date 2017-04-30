@@ -1,4 +1,8 @@
 script: "/main/screens/screen_logo/screen_logo.gui_script"
+textures {
+  name: "screen_logo"
+  texture: "/main/screens/screen_logo/screen_logo.atlas"
+}
 background_color {
   x: 0.0
   y: 0.0
@@ -7,8 +11,8 @@ background_color {
 }
 nodes {
   position {
-    x: 611.019
-    y: 308.166
+    x: 640.0
+    y: 360.0
     z: 0.0
     w: 1.0
   }
@@ -25,8 +29,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 200.0
-    y: 100.0
+    x: 900.0
+    y: 190.0
     z: 0.0
     w: 1.0
   }
@@ -38,7 +42,7 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: ""
+  texture: "screen_logo/LogoSubZero"
   id: "logo"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE

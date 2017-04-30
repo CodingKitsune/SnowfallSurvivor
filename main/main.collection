@@ -137,36 +137,9 @@ embedded_instances {
 }
 embedded_instances {
   id: "levels"
-  data: ""
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-embedded_instances {
-  id: "transitions"
-  data: "embedded_components {\n"
-  "  id: \"dummy\"\n"
-  "  type: \"model\"\n"
-  "  data: \"mesh: \\\"/riritools/assets/transition_stencil.dae\\\"\\n"
-  "material: \\\"/riritools/material/transition_stencil.material\\\"\\n"
-  "skeleton: \\\"\\\"\\n"
-  "animations: \\\"\\\"\\n"
-  "default_animation: \\\"\\\"\\n"
-  "name: \\\"unnamed\\\"\\n"
-  "\"\n"
+  data: "components {\n"
+  "  id: \"level_system_test\"\n"
+  "  component: \"/main/levels/level_system_test/level_system_test.collectionproxy\"\n"
   "  position {\n"
   "    x: 0.0\n"
   "    y: 0.0\n"
@@ -198,10 +171,17 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "go"
-  data: "components {\n"
-  "  id: \"script\"\n"
-  "  component: \"/main/go/character/character.script\"\n"
+  id: "transitions"
+  data: "embedded_components {\n"
+  "  id: \"dummy\"\n"
+  "  type: \"model\"\n"
+  "  data: \"mesh: \\\"/riritools/assets/transition_stencil.dae\\\"\\n"
+  "material: \\\"/riritools/material/transition_stencil.material\\\"\\n"
+  "skeleton: \\\"\\\"\\n"
+  "animations: \\\"\\\"\\n"
+  "default_animation: \\\"\\\"\\n"
+  "name: \\\"unnamed\\\"\\n"
+  "\"\n"
   "  position {\n"
   "    x: 0.0\n"
   "    y: 0.0\n"
