@@ -1,8 +1,8 @@
 image: "/main/assets/textures/tilesources/tilemap.png"
-tile_width: 17
-tile_height: 17
+tile_width: 16
+tile_height: 16
 tile_margin: 0
-tile_spacing: 0
+tile_spacing: 1
 collision: ""
 material_tag: "tile"
 collision_groups: "default"
@@ -15,5 +15,5 @@ animations {
   flip_horizontal: 0
   flip_vertical: 0
 }
-extrude_borders: 0
+extrude_borders: 1
 inner_padding: 0
