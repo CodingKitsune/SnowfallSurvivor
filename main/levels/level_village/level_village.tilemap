@@ -8241,7 +8241,7 @@ layers {
 }
 layers {
   id: "TopoArvores"
-  z: 0.1
+  z: 1.0
   is_visible: 1
   cell {
     x: 10

@@ -2,15 +2,19 @@ local gui_button = require("riritools.lua.gui_button")
 local defold_msgs = require("riritools.lua.defold_msgs")
 local rt_urls = require("riritools.lua.riritools_urls")
 local rt_msgs = require("riritools.lua.riritools_msgs")
+local color = require("riritools.lua.colors")
 
 function init(self)
 	msg.post(".", defold_msgs.ACQUIRE_INPUT_FOCUS)
-	self.logo = gui.get_node("logo")
 	self.background = gui.get_node("background")
 
 	self.clicked = false
 
 	self.new_game_button = gui_button:new("new_game_button")
+	self.new_game_button.normal_color = color.WHITE
+	self.new_game_button.pressed_color = color.GRAY
+	self.new_game_button.inactive_color = color.GRAY
+	self.new_game_button.disabled_color = color.GRAY
 	self.new_game_button:setup({translate=false})
 	self.new_game_button.pressed_function_args = self	
 	self.new_game_button.pressed_function = function(self)
@@ -22,6 +26,10 @@ function init(self)
 	end
 
 	self.continue_button = gui_button:new("continue_button")
+	self.continue_button.normal_color = color.WHITE
+	self.continue_button.pressed_color = color.GRAY
+	self.continue_button.inactive_color = color.GRAY
+	self.continue_button.disabled_color = color.GRAY
 	self.continue_button:setup({translate=false})
 	self.continue_button.pressed_function_args = self	
 	self.continue_button.pressed_function = function(self)
@@ -33,6 +41,10 @@ function init(self)
 	end
 
 	self.exit_button = gui_button:new("exit_button")
+	self.exit_button.normal_color = color.WHITE
+	self.exit_button.pressed_color = color.GRAY
+	self.exit_button.inactive_color = color.GRAY
+	self.exit_button.disabled_color = color.GRAY
 	self.exit_button:setup({translate=false})
 	self.exit_button.pressed_function_args = self	
 	self.exit_button.pressed_function = function(obj)

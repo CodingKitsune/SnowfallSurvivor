@@ -3,12 +3,31 @@ local defold_msgs = require("riritools.lua.defold_msgs")
 local rt_msgs = require("riritools.lua.riritools_msgs")
 local rt_urls = require("riritools.lua.riritools_urls")
 local ss_msgs = require("main.lua.msgs")
+local rt_groups = require("riritools.lua.riritools_groups")
 
 local is_paused = false
 
+local function handle_obstacle_contact(self, normal, distance)
+    local proj = vmath.dot(self.correction, normal)
+    local comp = (distance - proj) * normal
+    comp.z = 0
+    self.correction = self.correction + comp
+    go.set_position(go.get_position() + comp)
+
+    proj = vmath.dot(self.velocity, normal)
+    if proj < 0 then
+        self.velocity = self.velocity - proj * normal
+    end
+end
+
 function init(self)
+	self.correction = vmath.vector3()
+	self.move_acceleration = 4000
+	self.max_speed = 600
+    self.velocity = vmath.vector3(0, 0, 0)
+    self.move_input = {x=0, y=0}
 	rt_urls.dynamic.character = msg.url(".")
-	msg.post("camera", rt_msgs.SET_CAMERA_DELAY, {delay=1.0})
+	msg.post("camera", rt_msgs.SET_CAMERA_DELAY, {delay=0.7})
 	msg.post("camera", rt_msgs.SET_CAMERA_TARGET)
 	msg.post("camera", rt_msgs.SET_CAMERA_OFFSET, {offset=vmath.vector3(-640, -360, 0)})
 	msg.post(rt_urls.LEVEL_MANAGER, rt_msgs.WARN_LEVEL_CHANGES)
@@ -20,6 +39,46 @@ end
 
 function update(self, dt)
 	self.go_2_5d:update(dt)
+
+	local target_speed = {
+			x = self.move_input.x * self.max_speed,
+			y = self.move_input.y * self.max_speed,
+		}
+    local speed_diff = {	
+    	x=target_speed.x - self.velocity.x,
+    	y=target_speed.y - self.velocity.y,
+    }
+    local acceleration = vmath.vector3(0, 0, 0)
+    if speed_diff.x < 0 then
+        acceleration.x = -self.move_acceleration
+    else
+        acceleration.x = self.move_acceleration
+    end
+    if speed_diff.y < 0 then
+        acceleration.y = -self.move_acceleration
+    else
+        acceleration.y = self.move_acceleration
+    end
+    local dv = acceleration * dt
+    if math.abs(dv.x) > math.abs(speed_diff.x) then
+        dv.x = speed_diff.x
+    end
+    if math.abs(dv.y) > math.abs(speed_diff.y) then
+        dv.y = speed_diff.y
+    end
+
+    local v0 = self.velocity
+    
+    self.velocity = self.velocity + dv
+    local dp = (v0 + self.velocity) * dt * 0.5
+    go.set_position(go.get_position() + dp)
+	
+    self.correction = vmath.vector3()
+    self.move_input = {x=0,y=0}
+
+    if (self.velocity.x == 0 and self.velocity.y == 0) then
+    	 msg.post("#sprite", "play_animation", {id = hash("walking")})
+    end
 end
 
 function on_message(self, message_id, message, sender)
@@ -35,14 +94,19 @@ function on_message(self, message_id, message, sender)
 
 	local position = go.get_position()
 	if (message_id == ss_msgs.MOVE_CHAR_UP) then
-		position.y = position.y + 1
+		self.move_input.y = 0.2
 	elseif (message_id == ss_msgs.MOVE_CHAR_DOWN) then
-		position.y = position.y - 1
+		self.move_input.y = -0.2
 	elseif (message_id == ss_msgs.MOVE_CHAR_LEFT) then
-		position.x = position.x - 1
+		self.move_input.x = -0.2
+		sprite.set_hflip("#sprite", true)
 	elseif (message_id == ss_msgs.MOVE_CHAR_RIGHT) then
-		position.x = position.x + 1
+		self.move_input.x = 0.2
+		sprite.set_hflip("#sprite", false)
+	elseif message_id == defold_msgs.CONTACT_POINT_RESPONSE and message.group == rt_groups.GROUP_WORLD then
+        handle_obstacle_contact(self, message.normal, message.distance)
 	end
+
 	go.set_position(position)
 end
 
