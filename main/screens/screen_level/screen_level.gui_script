@@ -9,24 +9,21 @@ function init(self)
 	self.action_button = gui_button:new("action_button")
 	self.action_button:setup({translate=false})
 
-	self.clicked = false
-
 	self.pause_button = gui_button:new("pause_button")
 	self.pause_button:setup({translate=false})
 	self.pause_button.pressed_function_args = self
 	self.pause_button.pressed_function = function(self)
-		if not self.clicked then
-			msg.post(rt_urls.SCREEN_MANAGER, rt_msgs.POP_SCREEN)
-			msg.post(rt_urls.SCREEN_MANAGER, rt_msgs.PUSH_SCREEN, {screen="screen_pause"})
-			self.clicked = true
-		end
+		msg.post(rt_urls.SCREEN_MANAGER, rt_msgs.DISABLE_SCREEN, {screen="screen_level"})
+		msg.post(rt_urls.SCREEN_MANAGER, rt_msgs.ENABLE_SCREEN, {screen="screen_pause"})
+		msg.post(rt_urls.LEVEL_MANAGER, rt_msgs.PAUSE_LEVEL, {level="level_system_test"})
 	end
 
 	self.eat_game = gui_button:new("eat_button")
 	self.eat_game:setup({translate=false})
 
-	pprint("ASD2")
 	msg.post(rt_urls.GO_PLAYER, ss_msgs.START_LEVEL)
+	msg.post(rt_urls.SCREEN_MANAGER, rt_msgs.PUSH_SCREEN, {screen="screen_pause"})
+	msg.post(rt_urls.SCREEN_MANAGER, rt_msgs.DISABLE_SCREEN, {screen="screen_pause"})
 end
 
 function final(self)

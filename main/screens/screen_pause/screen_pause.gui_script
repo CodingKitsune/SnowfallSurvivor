@@ -13,11 +13,10 @@ function init(self)
 	self.continue_button:setup({translate = false})
 	self.continue_button.pressed_function_args = self
 	self.continue_button.pressed_function = function(self)
-		if not self.clicked then
-
-	
-			self.clicked = true
-		end
+		msg.post(rt_urls.SCREEN_MANAGER, rt_msgs.DISABLE_SCREEN, {screen="screen_pause"})
+		msg.post(rt_urls.SCREEN_MANAGER, rt_msgs.ENABLE_SCREEN, {screen="screen_level"})
+		msg.post(rt_urls.LEVEL_MANAGER, rt_msgs.RESUME_ALL_LEVELS)
+		self.clicked = true
 	end
 
 	self.title_button = gui_button:new("titulo_button")

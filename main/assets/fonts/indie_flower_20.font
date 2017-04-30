@@ -1,0 +1,6 @@
+font: "/main/assets/fonts/IndieFlower.ttf"
+material: "/builtins/fonts/font.material"
+size: 22
+alpha: 1.0
+outline_alpha: 0.48
+outline_width: 4.0

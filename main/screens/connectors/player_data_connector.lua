@@ -12,9 +12,7 @@ function player_data_connector:update(player, dt)
 end
 
 function player_data_connector:on_message(player, message_id, message, sender)
-	pprint("ASD")
 	if (message_id == ss_msgs.START_LEVEL) then
-		pprint(player.data)
 		msg.post(rt_urls.LEVEL_MANAGER, rt_msgs.PUSH_LEVEL, {level=player.data.map})
 	end
 end

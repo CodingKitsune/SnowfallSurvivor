@@ -4,10 +4,13 @@ local rt_msgs = require("riritools.lua.riritools_msgs")
 local rt_urls = require("riritools.lua.riritools_urls")
 local ss_msgs = require("main.lua.msgs")
 
+local is_paused = false
+
 function init(self)
 	rt_urls.dynamic.character = msg.url(".")
-	msg.post("camera", rt_msgs.SET_CAMERA_TARGET)
+	--msg.post("camera", rt_msgs.SET_CAMERA_TARGET)
 	msg.post("camera", rt_msgs.SET_CAMERA_OFFSET, {offset=vmath.vector3(-640, -360, 0)})
+	msg.post(rt_urls.LEVEL_MANAGER, rt_msgs.WARN_LEVEL_CHANGES)
 	self.go_2_5d = go_2_5d:new()
 end
 
@@ -19,6 +22,16 @@ function update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
+
+	if (message_id == rt_msgs.PAUSED_LEVEL) then
+		is_paused = true
+	elseif (message_id == rt_msgs.RESUMED_LEVEL) then
+		is_paused = false
+	end
+	if is_paused then
+		return
+	end
+
 	local position = go.get_position()
 	if (message_id == ss_msgs.MOVE_CHAR_UP) then
 		position.y = position.y + 1

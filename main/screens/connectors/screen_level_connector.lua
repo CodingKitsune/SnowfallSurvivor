@@ -14,7 +14,6 @@ function screen_level_connector:__initialize()
 end
 
 function screen_level_connector:update(player, dt)
-	pprint("potato")
 end
 
 function screen_level_connector:on_message(player, message_id, message, sender)
