@@ -8,4 +8,8 @@ function player_data_connector:update(player, dt)
 	--pprint("WORKS")
 end
 
+function player_data_connector:on_message(player, message_id, message, sender)
+	
+end
+
 connector.register_global_connector(player_data_connector)
