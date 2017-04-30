@@ -1,14 +1,24 @@
 local gui_button = require("riritools.lua.gui_button")
 local defold_msgs = require("riritools.lua.defold_msgs")
 local rt_urls = require("riritools.lua.riritools_urls")
+local rt_msgs = require("riritools.lua.riritools_msgs")
 
 function init(self)
 	msg.post(".", defold_msgs.ACQUIRE_INPUT_FOCUS)
 	self.action_button = gui_button:new("action_button")
 	self.action_button:setup({translate=false})
 
+	self.clicked = false
+
 	self.pause_button = gui_button:new("pause_button")
 	self.pause_button:setup({translate=false})
+	self.pause_button.target = self
+	self.pause_button.pressed_function = function(self)
+		if not self.clicked then
+			msg.post(rt_urls.SCREEN_MANAGER, rt_msgs.POP_SCREEN)
+			msg.post(rt_urls.SCREEN_MANAGER, rt_msgs.PUSH_SCREEN, {screen="screen_pause"})
+		end
+	end
 
 	self.eat_game = gui_button:new("eat_button")
 	self.eat_game:setup({translate=false})
